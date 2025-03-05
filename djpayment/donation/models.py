@@ -2,6 +2,7 @@ from django.db import models
 
 
 
+# This model represents donation causes that customer will be donating to.
 class Donation(models.Model):
 
     title = models.CharField(max_length=200)
