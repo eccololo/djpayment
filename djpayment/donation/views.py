@@ -4,17 +4,22 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 import uuid
 
+from .models import Donation
+
 
 def my_donation(request):
 
     # get the current host of requested website
     host = request.get_host()
 
+    # get item from Donation model
+    donation = Donation.objects.get(id=1)
+
     # paypal dict with PayPal API keys.
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
-        'amount': 5, # 5 USD
-        'item_name': 'Donate to Charity',
+        'amount': donation.amount, # in set currency
+        'item_name': donation.title,
         'no_shipping': '2', # User will be able to change his shipping address.
         'invoice': str(uuid.uuid4()),
         'currency_code': 'USD',
