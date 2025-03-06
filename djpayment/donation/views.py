@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 import uuid
+import time
 
 from .models import Donation
 
@@ -38,6 +39,8 @@ def my_donation(request):
 
 
 def payment_success(request):
+
+    time.sleep(10)
 
     return render(request, template_name="donation/payment-success.html")
 
