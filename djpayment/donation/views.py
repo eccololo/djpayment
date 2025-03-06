@@ -40,7 +40,7 @@ def my_donation(request):
 
 def payment_success(request):
 
-    time.sleep(10)
+    # time.sleep(10) # for ngrok
 
     return render(request, template_name="donation/payment-success.html")
 
