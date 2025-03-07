@@ -4,12 +4,14 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 import uuid
 import time
+import stripe
 
 from .models import Donation
 
 
 def my_donation(request):
 
+    # PAYPAL FUNCTIONALITY
     # get the current host of requested website
     host = request.get_host()
 
@@ -30,6 +32,20 @@ def my_donation(request):
     }
 
     paypal_form = PayPalPaymentsForm(initial=paypal_dict)
+    
+    # STRIPE FUNCTIONALITY
+    stripe.api_key = settings.STRIPE_PRIVATE_KEY
+
+    session = stripe.checkout.Session.create(
+        line_items=[{
+            'price': 'price_1R01juRsmckp34rTZcVL3a0s',
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('payment-success')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('payment-failed'))
+    )
+
 
     context = {
         'paypal_form': paypal_form

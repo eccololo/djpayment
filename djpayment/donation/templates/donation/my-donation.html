@@ -10,7 +10,12 @@
     <hr />
     <br />
     <p>Feel free to send donation ...</p>
+    <br />
     {{ paypal_form.render }}
     <br />
+    <button id="stripe-checkout" class="btn btn-info text-white w-50" type="submit">
+        <i class="fa fa-credit-card" aria-hidden="true"></i> &nbsp; Pay with Stripe
+    </button>
+    <br /><br />
 </div>
 {% endblock %}
