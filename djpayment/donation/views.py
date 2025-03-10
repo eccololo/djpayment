@@ -48,7 +48,9 @@ def my_donation(request):
 
 
     context = {
-        'paypal_form': paypal_form
+        'paypal_form': paypal_form,
+        'stripe_session_id': session.id,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     }
 
     return render(request, template_name="donation/my-donation.html", context=context)

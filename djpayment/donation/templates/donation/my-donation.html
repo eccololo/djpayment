@@ -18,4 +18,23 @@
     </button>
     <br /><br />
 </div>
+
+<!-- Stripe JS #1 -->
+ <script src="http://js.stripe.com/v3/"></script>
+
+<!-- Stripe JS #2 -->
+<script>
+
+    var stripe_public_key = Stripe('{{ stripe_public_key }}');
+    const pay_now_button = document.querySelector("#stripe-checkout");
+
+    pay_now_button.addEventListener("click", event => {
+        stripe_public_key.redirectToCheckout({
+            sessionId: '{{ stripe_session_id }}'
+        }).then(function(result){
+            console.log("Payment Succesfull!")
+        });
+    });
+
+</script>
 {% endblock %}
